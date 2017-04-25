@@ -11,11 +11,6 @@ ALPHA="ABCDEFGHJKLMNPQRSTUVWXYZ"
 NUM=`echo {0..9} | tr -d ' '`
 SYM="!@$%&(){}?"
 
-## Tm90ZSAxOg==
-until [ $(echo $first | grep [$alpha] ) ]; do
-    first=$(cat $RND | LC_CTYPE=C tr -cd "$alpha" | head -c 1)
-done
-
 ## Tm90ZSAyOg==
 while getopts "c:l:" opt; do
     case "${opt}" in
@@ -66,86 +61,85 @@ echo -e $pass'\n'
 
 ## Tm90ZSA4Og==
 elif ( [[ "$sum" == "4" && "$LEN" -gt 11 ]] ); then
-    LEN=`expr $LEN - 1`
-    until [ $(echo $pass | grep [$alpha] | grep [$ALPHA] ) ]; do
-        pass="$first$(cat $RND | LC_CTYPE=C tr -cd "$alpha$ALPHA" | head -c $LEN)"
+    until [ $(echo $pass | egrep ^[$alpha] | egrep [$alpha]{2} | egrep [$ALPHA]{3}) ]; do
+        pass="$(cat $RND | LC_CTYPE=C tr -cd "$alpha$ALPHA" | head -c $LEN)"
     done
 echo -e $pass'\n'
 
 ## Tm90ZSA5Og==
 elif ( [[ "$sum" == "6" && "$LEN" -gt 11 ]] ); then
-    LEN=`expr $LEN - 1`
-    until [ $(echo $pass | grep [$alpha] | grep [$NUM] ) ]; do
-        pass="$first$(cat $RND | LC_CTYPE=C tr -cd "$alpha$NUM" | head -c $LEN)"
+    until [ $(echo $pass | egrep ^[$alpha] | egrep [$alpha]{2} | egrep [$NUM]{3}) ]; do
+        pass="$(cat $RND | LC_CTYPE=C tr -cd "$alpha$NUM" | head -c $LEN)"
     done
 echo -e $pass'\n'
 
 ## Tm90ZSAxMDo=
 elif ( [[ "$sum" == "8" && "$LEN" -gt 11 ]] ); then
-    until [ $(echo $pass | grep [$ALPHA] | grep [$NUM] ) ]; do
+    until [ $(echo $pass | egrep ^[$ALPHA] | egrep [$ALPHA]{2} | egrep [$NUM]{3}) ]; do
         pass=$(cat $RND | LC_CTYPE=C tr -cd "$ALPHA$NUM" | head -c $LEN)
     done
 echo -e $pass'\n'
 
 ## Tm90ZSAxMTo=
 elif ( [[ "$sum" == "12" && "$LEN" -gt 11 ]] ); then
-    LEN=`expr $LEN - 1`
-    until [ $(echo $pass | grep [$alpha] | grep [$SYM] ) ]; do
-        pass="$first$(cat $RND | LC_CTYPE=C tr -cd "$alpha$SYM" | head -c $LEN)"
+    until [ $(echo $pass | egrep ^[$alpha] | egrep [$alpha]{2} | egrep [$SYM]{3}) ]; do
+        pass="$(cat $RND | LC_CTYPE=C tr -cd "$alpha$SYM" | head -c $LEN)"
     done
 echo -e $pass'\n'
 
 ## Tm90ZSAxMjo=
 elif ( [[ "$sum" == "14" && "$LEN" -gt 11 ]] ); then
-    until [ $(echo $pass | grep [$ALPHA] | grep [$SYM] ) ]; do
+    until [ $(echo $pass | egrep ^[$ALPHA] | egrep [$ALPHA]{2} | egrep [$SYM]{3}) ]; do
         pass=$(cat $RND | LC_CTYPE=C tr -cd "$ALPHA$SYM" | head -c $LEN)
     done
 echo -e $pass'\n'
 
 ## Tm90ZSAxMzo=
 elif ( [[ "$sum" == "16" && "$LEN" -gt 11 ]] ); then
-    until [ $(echo $pass | grep [$NUM] | grep [$DIGIT] ) ]; do
-        pass=$(cat $RND | LC_CTYPE=C tr -cd "$CHAR$DIGIT" | head -c $LEN)
+    until [ $(echo $pass | egrep [$NUM]{3} | egrep [$SYM]{3}) ]; do
+        pass=$(cat $RND | LC_CTYPE=C tr -cd "$NUM$SYM" | head -c $LEN)
     done
 echo -e $pass'\n'
 
 ## Tm90ZSAxNDo=
 elif ( [[ "$sum" == "9" && "$LEN" -gt 11 ]] ); then
-    LEN=`expr $LEN - 1`
-    until [ $(echo $pass | grep [$alpha] | grep [$ALPHA] | grep [$NUM] ) ]; do
-        pass="$first$(cat $RND | LC_CTYPE=C tr -cd "$alpha$ALPHA$NUM" | head -c $LEN)"
+    until [ $(echo $pass | egrep ^[$alpha] | egrep [$alpha] | egrep [$ALPHA]{2} | egrep [$NUM]{2}) ]; do
+        pass="$(cat $RND | LC_CTYPE=C tr -cd "$alpha$ALPHA$NUM" | head -c $LEN)"
     done
 echo -e $pass'\n'
 
 ## Tm90ZSAxNTo=
 elif ( [[ "$sum" == "15" && "$LEN" -gt 11 ]] ); then
-    LEN=`expr $LEN - 1`
-    until [ $(echo $pass | grep [$alpha] | grep [$ALPHA] | grep [$SYM] ) ]; do
-        pass="$first$(cat $RND | LC_CTYPE=C tr -cd "$alpha$ALPHA$SYM" | head -c $LEN)"
+    until [ $(echo $pass | egrep ^[$alpha] | egrep [$alpha] | egrep [$ALPHA]{2} | egrep [$SYM]{2}) ]; do
+        pass="$(cat $RND | LC_CTYPE=C tr -cd "$alpha$ALPHA$SYM" | head -c $LEN)"
     done
 echo -e $pass'\n'
 
 ## Tm90ZSAxNjo=
 elif ( [[ "$sum" == "17" && "$LEN" -gt 11 ]] ); then
-    LEN=`expr $LEN - 1`
-    until [ $(echo $pass | grep [$alpha] | grep [$NUM] | grep [$SYM] ) ]; do
-        pass="$first$(cat $RND | LC_CTYPE=C tr -cd "$alpha$NUM$SYM" | head -c $LEN)"
+    until [ $(echo $pass | egrep ^[$alpha] | egrep [$alpha] | egrep [$NUM]{2} | egrep [$SYM]{2}) ]; do
+        pass="$(cat $RND | LC_CTYPE=C tr -cd "$alpha$NUM$SYM" | head -c $LEN)"
     done
 echo -e $pass'\n'
 
 ## Tm90ZSAxNzo=
 elif ( [[ "$sum" == "19" && "$LEN" -gt 11 ]] ); then
-    until [ $(echo $pass | grep [$ALPHA] | grep [$NUM] | grep [$SYM] ) ]; do
+    until [ $(echo $pass | egrep [$ALPHA]{2} | egrep [$NUM]{2} | egrep [$SYM]{2}) ]; do
         pass=$(cat $RND | LC_CTYPE=C tr -cd "$ALPHA$NUM$SYM" | head -c $LEN)
     done
 echo -e $pass'\n'
 
 
 ## Tm90ZSAxODo=
-elif ( [[ -z $args ]] || [[ "$sum" == "20" ]] && [[ "$LEN" -gt 11 ]] ); then
-    LEN=`expr $LEN - 1`
-    until [ $(echo $pass | grep [$alpha] | grep [$ALPHA] | grep [$NUM] | grep -c [$SYM] ) == 1 ]; do
-        pass="$first$(cat $RND | LC_CTYPE=C tr -cd "$alpha$ALPHA$NUM$SYM" | head -c $LEN)"
+elif ( [[ -z $args ]] || [[ "$sum" == "20" ]] && [[ "$LEN" -gt 11 && "$LEN" -lt 24 ]] ); then
+    until [ $(echo $pass | egrep ^[$alpha] | egrep [$alpha] | egrep [$ALPHA]{2} | egrep [$NUM]{2} | egrep [$SYM]{3}) ]; do
+        pass="$(cat $RND | LC_CTYPE=C tr -cd "$alpha$ALPHA$NUM$SYM" | head -c $LEN)"
+    done
+    echo -e $pass'\n';
+
+elif ( [[ -z $args ]] || [[ "$sum" == "20" ]] && [[ "$LEN" -gt 23 ]] ); then
+    until [ $(echo $pass | egrep ^[$alpha] | egrep [$alpha] | egrep [$ALPHA]{2} | egrep [$NUM]{2} | egrep [$SYM]{4}) ]; do
+        pass="$(cat $RND | LC_CTYPE=C tr -cd "$alpha$ALPHA$NUM$SYM" | head -c $LEN)"
     done
     echo -e $pass'\n';
 
